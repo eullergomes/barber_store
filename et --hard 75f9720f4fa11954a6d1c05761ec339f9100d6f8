@@ -1,0 +1,35 @@
+[33mcommit 75f9720f4fa11954a6d1c05761ec339f9100d6f8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: eullergomes <eullertexeira@gmail.com>
+Date:   Tue Jan 30 15:33:26 2024 -0300
+
+    feat: add initial header component
+
+[33mcommit 3682d67136d9e528f055b87bcf2804c1364dac6f[m
+Author: eullergomes <eullertexeira@gmail.com>
+Date:   Tue Jan 30 15:11:38 2024 -0300
+
+    chore: add shadcn setup
+
+[33mcommit dcc7c532a1cb57832af466d75a68fef678bb378e[m
+Author: eullergomes <eullertexeira@gmail.com>
+Date:   Tue Jan 30 15:02:36 2024 -0300
+
+    chore: add seeds script
+
+[33mcommit 36ecb66841af247b96b2413e45734accddb29d32[m
+Author: eullergomes <eullertexeira@gmail.com>
+Date:   Tue Jan 30 14:48:35 2024 -0300
+
+    chore: add initial prisma schema
+
+[33mcommit 81ca3383a850a72e90a08b679ba4a6d905d0e401[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: eullergomes <eullertexeira@gmail.com>
+Date:   Mon Jan 29 22:46:57 2024 -0300
+
+    git initialize
+
+[33mcommit 06c9ab6e280d6e596203f9e6003fad6b3dbc7773[m
+Author: Euller Gomes <eullertexeira@gmail.com>
+Date:   Mon Jan 29 22:38:31 2024 -0300
+
+    Initial commit
