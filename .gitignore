@@ -36,3 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+
+.et --hard 75f9720f4fa11954a6d1c05761ec339f9100d6f8

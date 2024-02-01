@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="BR">
+      <head>
+        <link rel='icon' href='/favicon.svg'/>
+      </head>
       <body className={`${inter.className} dark`}>
         {children}
         <Footer/>
