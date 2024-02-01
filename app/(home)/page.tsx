@@ -10,13 +10,13 @@ import { Barbershop } from '@prisma/client';
 export default async function Home() {
   //chamar prisma e pegar barbearias
   const barbershops = await db.barbershop.findMany({});
-
+  
   return (
     <div>
       <Header />
 
       <div className="px-5 pt-5">
-        <h2 className='text-xl font-bold'>Olá, Euller</h2>
+        <h2 className='text-xl font-bold'>Olá, Samira</h2>
         <p className="capitalize">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
@@ -48,7 +48,7 @@ export default async function Home() {
 
         <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
           {barbershops.map((barbershop: Barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>      
           ))}
         </div>
       </div>
