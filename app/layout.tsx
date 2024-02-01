@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from './_components/footer';
+import AuthProvider from './api/auth/[...nextauth]/providers/auth';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
         <link rel='icon' href='/favicon.svg'/>
       </head>
       <body className={`${inter.className} dark`}>
-        {children}
-        <Footer/>
-        </body>
+        <AuthProvider>
+          {children}
+          <Footer/>
+        </AuthProvider>        
+      </body>
     </html>
   );
 }
