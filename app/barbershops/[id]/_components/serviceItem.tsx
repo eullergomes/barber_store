@@ -13,6 +13,8 @@ import { generateDayTimeList } from '../_helpers/hours';
 import { format, setHours, setMinutes } from 'date-fns';
 import { saveBooking } from '../_actions/save-booking';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface ServiceItemProps {
   service: Service
@@ -22,11 +24,14 @@ interface ServiceItemProps {
 
 const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
 
+  const router = useRouter();
+
   const {data} = useSession();
 
   const [date, setDate] = useState<Date | undefined>(undefined) //initial date underfined
   const [hour, setHour] = useState<string | undefined>()
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
+  const [sheetIsOpen, setSheetIsOpen] = useState(false);
 
   //resetar o horario selecionado após mudar a data
   const handleDateClick = (date: Date | undefined) => {
@@ -69,6 +74,20 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
         date: newDate,
         barbershopId: barbershop.id,
       });
+
+      setSheetIsOpen(false);
+      setHour(undefined);
+      setDate(undefined);
+
+      toast("Reserva realizada com sucesso", {
+        description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
+          locale: ptBR,
+        }),
+        action: {
+          label: "Visualizar",
+          onClick: () => router.push('/bookins'),
+        },
+      })
     } catch (error) {
       console.log(error);
       
@@ -110,7 +129,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                 }).format(Number(service.price))}
               </p>
 
-              <Sheet>
+              <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button variant='secondary'>
                     Reservar
