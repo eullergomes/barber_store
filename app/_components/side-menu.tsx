@@ -52,7 +52,7 @@ const SideMenu = () => {
       )}
 
       <div className='flex flex-col gap-3 px-5'>
-        <Button onClick={handleLoginClick} variant='outline' className='justify-start' asChild>
+        <Button variant='outline' className='justify-start' asChild>
           {/* redirect */}
           <Link href='/'>
             <HomeIcon className='mr-2' size={18} />

@@ -16,7 +16,7 @@ export default async function Home() {
       <Header />
 
       <div className="px-5 pt-5">
-        <h2 className='text-xl font-bold'>Olá, Samira</h2>
+        <h2 className='text-xl font-bold'>Olá, Euller</h2>
         <p className="capitalize">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
@@ -40,7 +40,7 @@ export default async function Home() {
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop}/>
           ))}
-        </div>
+        </div> 
       </div>
 
       <div className='mt-6 mb-[4.5rem]'>
