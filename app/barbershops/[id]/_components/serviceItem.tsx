@@ -41,13 +41,13 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
     }
 
     const refreshAvailableHours = async () => {
-      const _dayBookins = await getDayBookings(date);
+      const _dayBookins = await getDayBookings(barbershop.id, date);
 
       setDayBookings(_dayBookins);
     };
 
     refreshAvailableHours();
-  }, [date]);
+  }, [date, barbershop.id]);
 
   //resetar o horario selecionado após mudar a data
   const handleDateClick = (date: Date | undefined) => {
@@ -176,11 +176,11 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                 </SheetTrigger>
 
                 <SheetContent className='p-0'>
-                  <SheetHeader className='text-left px-5 py6 border-b border-solid border-secondary'>
+                  <SheetHeader className='text-left px-5 py-3 border-b border-solid border-secondary'>
                     <SheetTitle>Fazer reserva</SheetTitle>
                   </SheetHeader>
 
-                  <div className="py-6 px-5">
+                  <div className="py-1 px-1">
                     <Calendar
                       mode="single"
                       selected={date}
@@ -213,9 +213,9 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                     />
                   </div>
 
-                  {/* Mostrar lista de horários apenas uma data estiver sendo selecionada */}
+                  {/* Mostrar lista de horários apenas quando uma data estiver sendo selecionada */}
                   {date && (
-                    <div className='flex gap-3 py-6 px-5 border-t border-solid border-secondary overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+                    <div className='flex gap-3 py-3 px-5 border-t border-solid border-secondary overflow-x-auto [&::-webkit-scrollbar]:hidden'>
                       {timeList.map((time) => (
                         <Button variant={hour === time ? 'default' : 'outline'} className='rounded-full' key={time} onClick={() => hundleHourClick(time)}>{time}</Button>
                       ))}
@@ -223,7 +223,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                     </div>
                   )}
 
-                  <div className='py-6 px-5  border-t border-solid border-secondary'>
+                  <div className='py-4 px-5  border-t border-solid border-secondary'>
                     <Card>
                       <CardContent className='p-3 gap-3 flex flex-col'>
                         <div className="flex justify-between">
@@ -271,18 +271,12 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
 
                 </SheetContent>  
               </Sheet>
-                
-              
-              
             </div>
           </div>
         </div>
       </CardContent>
-
-      
     </Card>
    );
 }
  
 export default ServiceItem;
-

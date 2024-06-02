@@ -1,12 +1,12 @@
 "use client";
 
-
 import { SheetHeader, SheetTitle } from './ui/sheet';
 import { Button } from './ui/button';
-import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon, UserIcon } from 'lucide-react';
+import { CalendarIcon, HomeIcon, LogOutIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarImage } from './ui/avatar';
+import { AlertDialogDemo } from '../barbershops/[id]/_components/loginTypes';
 
 const SideMenu = () => {
 
@@ -44,10 +44,7 @@ const SideMenu = () => {
             <h2 className='font-bold'>Olá, faça seu login!</h2>
           </div>
 
-          <Button onClick={handleLoginClick} variant='secondary' className='w-full justify-start'>
-            <LogInIcon className='mr-2' size={18} />
-            Fazer login
-          </Button>
+          <AlertDialogDemo />
         </div>
       )}
 
