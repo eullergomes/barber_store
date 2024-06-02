@@ -8,7 +8,7 @@ import { Toaster } from "./_components/ui/sonner"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Barbearia",
+  title: "Barbear Store",
   description: "Sistema para barbearia",
 };
 
