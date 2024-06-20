@@ -13,5 +13,5 @@ export function generateDayTimeList(date: Date): string[] {
     currentTime = addMinutes(currentTime, interval);
   }
 
-  return timeList;
+  return timeList; //[09:00', '09:45', '10:30', '11:15', '12:00', '12:45', ...] 
 }

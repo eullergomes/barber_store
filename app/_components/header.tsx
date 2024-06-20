@@ -7,17 +7,17 @@ import { CalendarDays, MenuIcon, UserCircle2, UserIcon } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import SideMenu from './side-menu';
 import { useSession } from 'next-auth/react';
-import { Avatar, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 const Header = () => {
-  const {data, status} = useSession();
-  
-  return ( 
+  const { data } = useSession();
+
+  return (
     //<Navbar/>
     <Card className='md:px-28'>
-      <CardContent className='p-5 flex justify-between items-center flex-row'>
-        <Image src="/logo.svg" alt="FSW Barber" height={18} width={120}/>
-        
+      <CardContent className='p-5 flex justify-between items-center'>
+        <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
+
         <div className='hidden md:flex space-x-8'>
           <div className='flex gap-2 items-center'>
             <CalendarDays />
@@ -27,7 +27,15 @@ const Header = () => {
           {data?.user ? (
             <div className='flex gap-2 items-center'>
               <Avatar>
-                <AvatarImage src={data.user?.image as string} />
+                <AvatarImage 
+                  src={data.user?.image as string | undefined} 
+                  alt={data.user?.name as string}
+                />
+                <AvatarFallback>
+                  {data?.user?.name?.split(" ")[0][0]}
+                  {data?.user?.name?.split(" ")[1][0]}
+                </AvatarFallback>
+
               </Avatar>
 
               <h3>{data.user?.name}</h3>
@@ -38,30 +46,25 @@ const Header = () => {
               <h3>Perfil</h3>
             </div>
           )}
-
-          
         </div>
 
         <Card className='md:hidden'>
           <Sheet>
             <SheetTrigger asChild>
-
               <Button variant="outline" size="icon">
                 <MenuIcon size={16} />
               </Button>
             </SheetTrigger>
 
             <SheetContent className='p-0'>
-
               <SideMenu />
-
             </SheetContent>
           </Sheet>
         </Card>
-        
+
       </CardContent>
-    </Card> 
+    </Card>
   );
 }
- 
+
 export default Header;

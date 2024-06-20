@@ -14,7 +14,6 @@ interface BarbershopDetailsPageProps {
 }
 
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
-
   const session = await getServerSession() // === useSession in client component
 
   if (!params.id) {

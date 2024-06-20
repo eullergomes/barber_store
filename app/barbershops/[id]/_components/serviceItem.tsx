@@ -27,9 +27,9 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
 
   const router = useRouter();
 
-  const {data} = useSession();
+  const { data } = useSession();
 
-  const [date, setDate] = useState<Date | undefined>(undefined) //initial date underfined
+  const [date, setDate] = useState<Date | undefined>(undefined)
   const [hour, setHour] = useState<string | undefined>()
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
@@ -83,6 +83,8 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
       const dateMinutes = Number(hour.split(':')[1]);
 
       const newDate = setMinutes(setHours(date, dateHour), dateMinutes);
+      console.log(newDate);
+      
 
       await saveBooking({
         serviceId: service.id,
@@ -112,18 +114,18 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
     }
   }
 
+  //hours available for the selected date
   const timeList = useMemo(() => {
     if (!date) {
       return []
     }
 
+    //list of available hours
     return generateDayTimeList(date).filter(time => {
-      //time: "09:00"
-      //se houver reserva em "dayBookings" com a hora e min igual a time, não in
-
       const timeHour = Number(time.split(":")[0]);
       const timeMinutes = Number(time.split(":")[1]);
-
+      
+      //check if the time is available
       const booking = dayBookings.find(booking => {
         const bookingHour = booking.date.getHours();
         const bookingMinutes = booking.date.getMinutes();
@@ -137,13 +139,14 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
 
       return false;
     })
+    
   }, [date, dayBookings]);
 
   return ( 
     <Card>
       <CardContent className='p-3 w-full'>
         <div className="flex gap-4 items-center w-full">
-          <div className='min-w-[110px] min-h-[110px] max-h-[110px] maz-w-[110px] relative'>
+          <div className='min-w-[110px] min-h-[110px] max-h-[110px] max-w-[110px] relative'>
             <Image
               src={service.imageUrl}
               alt={service.name}
@@ -151,8 +154,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
               fill
               style={{
                 objectFit: 'contain'
-              }}
-              
+              }}  
             />
           </div>
 
@@ -170,7 +172,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
 
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
-                  <Button variant='secondary'>
+                  <Button variant='secondary' onClick={handleBookingClick}>
                     Reservar
                   </Button>
                 </SheetTrigger>
@@ -188,27 +190,27 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                       locale={ptBR}
                       fromDate={new Date()} //não selecionar data anteriores ao dia de hoje
                       styles={{
-                        head_cell: {
-                          width: "100%",
-                          textTransform: "capitalize",
+                        head_cell: { //days in top the calendar
+                          width: '100%',
+                          textTransform: 'capitalize',
                         },
                         cell: {
-                          width: "100%",
+                          width: '100%', //dates in the calendar
                         },
                         button: {
-                          width: "100%",
+                          width: '100%',
                         },
                         nav_button_previous: {
-                          width: "32px",
-                          height: "32px",
+                          width: '32px',
+                          height: '32px',
                         },
                         nav_button_next: {
-                          width: "32px",
-                          height: "32px",
+                          width: '32px',
+                          height: '32px',
                         },
                         caption: {
-                          textTransform: "capitalize",
-                        },
+                          textTransform: 'capitalize', //month and year
+                        }
                       }}
                     />
                   </div>
@@ -219,7 +221,6 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                       {timeList.map((time) => (
                         <Button variant={hour === time ? 'default' : 'outline'} className='rounded-full' key={time} onClick={() => hundleHourClick(time)}>{time}</Button>
                       ))}
-
                     </div>
                   )}
 
@@ -265,10 +266,8 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                     <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
                       {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}      
                       Confirmar reserva  
-                    </Button>
-                      
+                    </Button>    
                   </SheetFooter>
-
                 </SheetContent>  
               </Sheet>
             </div>

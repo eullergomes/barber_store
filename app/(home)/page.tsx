@@ -5,7 +5,6 @@ import { Barbershop } from '@prisma/client';
 import Main from '../_components/main';
 
 export default async function Home() {
-  //chamar prisma e pegar barbearias
   const barbershops = await db.barbershop.findMany({});
   
   return (
@@ -14,7 +13,7 @@ export default async function Home() {
 
       <Main />
 
-      <div className='mt-6 md:mx-24'>
+      <div className='mt-5 md:mx-24'>
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Recomendados</h2>
 
         <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>

@@ -64,9 +64,7 @@ const BarbershopInfo = ({ barbershop }: BarbershopDetailsinfoProps) => {
           <MapPinIcon className='text-primary' size={18}/>
           <p className='text-sm'>5,0 (899 avaliações)</p>
         </div>
-        
       </div>
-
     </div>
    );
 }

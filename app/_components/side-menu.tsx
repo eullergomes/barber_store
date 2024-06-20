@@ -5,12 +5,14 @@ import { Button } from './ui/button';
 import { CalendarIcon, HomeIcon, LogOutIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Avatar, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { AlertDialogDemo } from '../barbershops/[id]/_components/loginTypes';
+import { useState } from 'react';
 
 const SideMenu = () => {
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
-  const {data, status} = useSession();
+  const { data } = useSession();
 
   const handleLoginClick = () => signIn("google"); 
 
@@ -27,7 +29,14 @@ const SideMenu = () => {
           <div className='flex items-center gap-3'>
 
             <Avatar>
-              <AvatarImage src={data.user?.image as string} />
+              <AvatarImage 
+                src={data.user?.image as string | undefined} 
+                alt={data.user?.name as string}
+              />
+              <AvatarFallback>
+                {data?.user?.name?.split(" ")[0][0]}
+                {data?.user?.name?.split(" ")[1][0]}
+              </AvatarFallback>
             </Avatar>
 
             <h2 className='font-bold'>{data.user?.name}</h2>
@@ -39,12 +48,12 @@ const SideMenu = () => {
         </div>
       ) : (
         <div className='flex flex-col gap-3 px-5 py-6'>
-          <div className="flex items-center gap-2">
-            <UserIcon size={32} />
+          <div className="flex items-center gap-2 mb-4">
+            <UserIcon size={28} />
             <h2 className='font-bold'>Olá, faça seu login!</h2>
           </div>
 
-          <AlertDialogDemo />
+          <AlertDialogDemo isConfirmDialogOpen={isConfirmDialogOpen} setIsConfirmDialogOpen={setIsConfirmDialogOpen}/>
         </div>
       )}
 
