@@ -62,7 +62,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const handleBookingClick = () => {
     if (!data?.user) {
       return signIn("google");
-    } 
+    }
   }
 
   const handleBookingSubmit = async () => {
@@ -78,7 +78,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
       const newDate = setMinutes(setHours(date, dateHour), dateMinutes);
       console.log(newDate);
-      
+
 
       await saveBooking({
         serviceId: service.id,
@@ -102,7 +102,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       })
     } catch (error) {
       console.log(error);
-      
+
     } finally {
       setSubmitIsLoading(false);
     }
@@ -118,7 +118,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     return generateDayTimeList(date).filter(time => {
       const timeHour = Number(time.split(":")[0]);
       const timeMinutes = Number(time.split(":")[1]);
-      
+
       //check if the time is available
       const booking = dayBookings.find(booking => {
         const bookingHour = booking.date.getHours();
@@ -133,10 +133,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
       return false;
     })
-    
+
   }, [date, dayBookings]);
 
-  return ( 
+  return (
     <Card>
       <CardContent className='p-3 w-full'>
         <div className="flex gap-4 items-center w-full">
@@ -148,7 +148,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               fill
               style={{
                 objectFit: 'contain'
-              }}  
+              }}
             />
           </div>
 
@@ -234,7 +234,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                         {date && (
                           <div className="flex justify-between">
-                            <h3 className='text-gray-400'>Data</h3>  
+                            <h3 className='text-gray-400'>Data</h3>
                             <h4 className='text-sm'>{format(date, "dd 'de' MMMM", {
                               locale: ptBR,
                             })}</h4>
@@ -243,13 +243,13 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                         {hour && (
                           <div className="flex justify-between">
-                            <h3 className='text-gray-400'>Horário</h3>  
+                            <h3 className='text-gray-400'>Horário</h3>
                             <h4 className='text-sm'>{hour}</h4>
                           </div>
                         )}
 
                         <div className="flex justify-between">
-                          <h3 className='text-gray-400'>Barbearia</h3>  
+                          <h3 className='text-gray-400'>Barbearia</h3>
                           <h4 className='text-sm'>{barbershop.name}</h4>
                         </div>
                       </CardContent>
@@ -258,18 +258,18 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                   <SheetFooter className='px-5'>
                     <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
-                      {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}      
-                      Confirmar reserva  
-                    </Button>    
+                      {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Confirmar reserva
+                    </Button>
                   </SheetFooter>
-                </SheetContent>  
+                </SheetContent>
               </Sheet>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
-   );
+  );
 }
- 
+
 export default ServiceItem;

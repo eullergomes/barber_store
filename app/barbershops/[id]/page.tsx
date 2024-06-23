@@ -3,7 +3,7 @@
 
 import { db } from '@/app/_lib/prisma';
 import BarbershopInfo from './_components/barbershopInfo';
-import ServiceItem from './_components/serviceItem';
+import ServiceItem from './_components/service-item';
 import { Service } from '@prisma/client';
 // import { getServerSession } from 'next-auth';
 
