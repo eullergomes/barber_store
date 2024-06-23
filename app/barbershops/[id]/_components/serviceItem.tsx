@@ -19,11 +19,11 @@ import { getDayBookings } from '../_actions/get-day-bookings';
 
 interface ServiceItemProps {
   service: Service
-  isAuthenticated: boolean
+  // isAuthenticated: boolean
   barbershop: Barbershop
 }
 
-const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
+const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const router = useRouter();
 
@@ -60,7 +60,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
   }
 
   const handleBookingClick = () => {
-    if (!isAuthenticated) {
+    if (!data?.user) {
       return signIn("google");
     } 
   }
@@ -72,12 +72,6 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
       if (!hour || !date || !data?.user) {
         return
       }
-
-      /*
-      Ex: 09:45  ->   ['09':'45']
-      dateHour = 09
-      dateMinutes = '45'
-      */
 
       const dateHour = Number(hour.split(':')[0]);
       const dateMinutes = Number(hour.split(':')[1]);
@@ -103,7 +97,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
         }),
         action: {
           label: "Visualizar",
-          onClick: () => router.push('/bookins'),
+          onClick: () => router.push('/bookings'),
         },
       })
     } catch (error) {

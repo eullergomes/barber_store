@@ -3,11 +3,12 @@
 import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { CalendarDays, MenuIcon, UserCircle2, UserIcon } from 'lucide-react';
+import { CalendarDays, MenuIcon, UserCircle2 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import SideMenu from './side-menu';
 import { useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import Link from 'next/link';
 
 const Header = () => {
   const { data } = useSession();
@@ -16,7 +17,9 @@ const Header = () => {
     //<Navbar/>
     <Card className='md:px-28'>
       <CardContent className='p-5 flex justify-between items-center'>
-        <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
+        <Link href="/">
+          <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
+        </Link>
 
         <div className='hidden md:flex space-x-8'>
           <div className='flex gap-2 items-center'>

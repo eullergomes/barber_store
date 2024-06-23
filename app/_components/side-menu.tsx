@@ -14,7 +14,9 @@ const SideMenu = () => {
 
   const { data } = useSession();
 
-  const handleLoginClick = () => signIn("google"); 
+  const handleLoginClick = () => {
+    if (!data?.user) return signIn('google');
+  }
 
   const handleLogoutClick = () => signOut();
 
