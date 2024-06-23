@@ -10,7 +10,7 @@ import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { generateDayTimeList } from '../_helpers/hours';
-import { format, setHours, setMinutes } from 'date-fns';
+import { addDays, format, setHours, setMinutes } from 'date-fns';
 import { saveBooking } from '../_actions/save-booking';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -19,7 +19,6 @@ import { getDayBookings } from '../_actions/get-day-bookings';
 
 interface ServiceItemProps {
   service: Service
-  // isAuthenticated: boolean
   barbershop: Barbershop
 }
 
@@ -49,7 +48,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     refreshAvailableHours();
   }, [date, barbershop.id]);
 
-  //resetar o horario selecionado após mudar a data
+  //reset selected time after changing data
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
@@ -66,6 +65,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   }
 
   const handleBookingSubmit = async () => {
+    handleBookingClick();
+
     setSubmitIsLoading(true);
 
     try {
@@ -166,7 +167,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
-                  <Button variant='secondary' onClick={handleBookingClick}>
+                  <Button variant='secondary'>
                     Reservar
                   </Button>
                 </SheetTrigger>
@@ -182,7 +183,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       selected={date}
                       onSelect={handleDateClick}
                       locale={ptBR}
-                      fromDate={new Date()} //não selecionar data anteriores ao dia de hoje
+                      fromDate={addDays(new Date(), 1)} //select appointment from the next day
                       styles={{
                         head_cell: { //days in top the calendar
                           width: '100%',
@@ -209,7 +210,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     />
                   </div>
 
-                  {/* Mostrar lista de horários apenas quando uma data estiver sendo selecionada */}
+                  {/* Show time list only when a date is being selected */}
                   {date && (
                     <div className='flex gap-3 py-3 px-5 border-t border-solid border-secondary overflow-x-auto [&::-webkit-scrollbar]:hidden'>
                       {timeList.map((time) => (
