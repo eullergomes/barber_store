@@ -2,12 +2,13 @@ import Header from '../_components/header';
 import { db } from '../_lib/prisma';
 import BarbershopItem from './_components/barbershop-item';
 import { Barbershop } from '@prisma/client';
-import Main from '../_components/main';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import Search from './_components/search';
 import BookingItem from '../_components/booking-item';
 import { Key } from 'react';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -33,7 +34,16 @@ export default async function Home() {
     <div>
       <Header />
 
-      <Main />
+      <div className="px-5 pt-5">
+        <h2 className="text-xl font-bold">
+          {session?.user ? `Olá, ${session.user.name?.split(" ")[0]}!` : "Olá! Vamos agendar um corte hoje?"}
+        </h2>
+        <p className="capitalize text-sm">
+          {format(new Date(), "EEEE',' dd 'de' MMMM", {
+            locale: ptBR,
+          })}
+        </p>
+      </div>
 
       <div className='px-5 mt-6'>
         <Search />
