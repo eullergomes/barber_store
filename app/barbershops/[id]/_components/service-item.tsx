@@ -91,7 +91,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       setHour(undefined);
       setDate(undefined);
 
-      toast("Reserva realizada com sucesso", {
+      toast("Agendamento realizado com sucesso", {
         description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
           locale: ptBR,
         }),

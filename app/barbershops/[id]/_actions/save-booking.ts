@@ -20,5 +20,6 @@ export const saveBooking = async (params: saveBookingProps) => {
     }
   })
 
+  revalidatePath('/')
   revalidatePath('/bookings');
 }

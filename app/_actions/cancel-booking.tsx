@@ -8,7 +8,8 @@ export const cancelBooking = async (bookingId: string) => {
     where: {
       id: bookingId
     }
-  })
+  });
 
+  revalidatePath('/');
   revalidatePath('/bookings');
 };

@@ -28,7 +28,7 @@ export default async function Home() {
       },
     }) : Promise.resolve([])
   ])
-  
+
   return (
     <div>
       <Header />
@@ -40,12 +40,16 @@ export default async function Home() {
       </div>
 
       <div className="mt-6">
-        <h2 className='pl-5 text-xs mb-3 uppercase text-gray-400 font-bold'>Agendamentos</h2>
-        <div className='px-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
-        {confirmedBookings.map((booking: { id: Key | null | undefined; }) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
-        </div>
+        {confirmedBookings.length > 0 && (
+          <>
+          <h2 className='pl-5 text-xs mb-3 uppercase text-gray-400 font-bold'>Agendamentos</h2>
+          <div className='px-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+            {confirmedBookings.map((booking: { id: Key | null | undefined; }) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))}
+          </div>
+          </>
+        )}
       </div>
 
       <div className='mt-5 md:mx-24'>
@@ -53,9 +57,9 @@ export default async function Home() {
 
         <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
           {barbershops.map((barbershop: Barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
-        </div> 
+        </div>
       </div>
 
       <div className='mt-6 mb-[4.5rem] md:mx-24'>
@@ -63,11 +67,11 @@ export default async function Home() {
 
         <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
           {barbershops.map((barbershop: Barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop}/>      
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
       </div>
-      
+
     </div>
   );
 }
