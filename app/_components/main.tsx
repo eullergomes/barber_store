@@ -9,7 +9,7 @@ const Main = () => {
 
   return (
     //Está errado
-    <main className="h-20 flex items-center justify-center object-cover bg-gray-800">
+    <main className="h-20 flex items-center justify-center object-cover bg-secundary">
         <div>
           {data?.user ? (
             <h2 className='text-xl font-bold'>{`Olá, ${data.user?.name}!`}</h2>
