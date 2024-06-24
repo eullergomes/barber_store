@@ -5,6 +5,8 @@ import { db } from '@/app/_lib/prisma';
 import BarbershopInfo from './_components/barbershopInfo';
 import ServiceItem from './_components/service-item';
 import { Service } from '@prisma/client';
+import Header from '@/app/_components/header';
+import Search from '@/app/_components/search';
 // import { getServerSession } from 'next-auth';
 
 interface BarbershopDetailsPageProps {
@@ -37,19 +39,20 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
   }
 
   return (
-    <div>
-      <BarbershopInfo barbershop={barbershop}/>
+    <>
+      <Header inputComponent={<Search />} />
 
-      <div className="px-5 flex flex-col gap-4 py-6">
-        {barbershop.services.map((service: Service) => (
-          <ServiceItem key={service.id} service={service} barbershop={barbershop}/>
-        ))}
+      <div>
+        <BarbershopInfo barbershop={barbershop} />
+
+        <div className="px-5 flex flex-col gap-4 py-6">
+          {barbershop.services.map((service: Service) => (
+            <ServiceItem key={service.id} service={service} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
-      
-      
-    </div>
-    
+    </>
   );
 };
- 
+
 export default BarbershopDetailsPage;

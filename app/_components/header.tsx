@@ -1,57 +1,91 @@
 "use client"
 
 import Image from 'next/image';
-import { Card, CardContent } from './ui/card';
+import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { CalendarDays, MenuIcon, UserCircle2 } from 'lucide-react';
+import { CalendarDays, ChevronDownIcon, LogOutIcon, MenuIcon, UserCircle2 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import SideMenu from './side-menu';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import Link from 'next/link';
+import { ReactNode, useState } from 'react';
+import { AlertDialog } from './ui/alert-dialog';
+import DialogLogin from './dialog-login';
 
-const Header = () => {
+interface HeaderProps {
+  inputComponent?: ReactNode;
+}
+
+const Header: React.FC<HeaderProps> = ({ inputComponent }) => {
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+
   const { data } = useSession();
 
+  const handleLogoutClick = () => signOut();
+
   return (
-    //<Navbar/>
-    <Card className='md:px-28'>
-      <CardContent className='p-5 flex justify-between items-center'>
+    <>
+      <header className="flex justify-between items-center p-5 lg:px-24">
         <Link href="/">
           <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
         </Link>
 
-        <div className='hidden md:flex space-x-8'>
-          <div className='flex gap-2 items-center'>
+        {inputComponent && (
+          <div className="hidden w-1/2 lg:block">{inputComponent}</div>
+        )}
+
+        <div className='hidden lg:flex space-x-8'>
+          <Link href='/bookings' className='flex gap-2 items-center hover:bg-secondary rounded-sm p-2'>
             <CalendarDays />
             <h3>Agendamentos</h3>
-          </div>
+          </Link>
 
           {data?.user ? (
             <div className='flex gap-2 items-center'>
               <Avatar>
-                <AvatarImage 
-                  src={data.user?.image as string | undefined} 
+                <AvatarImage
+                  src={data.user?.image as string | undefined}
                   alt={data.user?.name as string}
                 />
                 <AvatarFallback>
                   {data?.user?.name?.split(" ")[0][0]}
                   {data?.user?.name?.split(" ")[1][0]}
                 </AvatarFallback>
-
               </Avatar>
 
               <h3>{data.user?.name}</h3>
+
+                <div className="group relative cursor-pointer">
+                  <div className="flex items-center justify-between space-x-5 px-2">
+                    <a className="menu-hover my-2 text-base font-medium text-white">
+                      <ChevronDownIcon className='hover:rotate-180' size={18} />
+                    </a>
+                  </div>
+                  <div className="invisible absolute z-50 flex w-[120px] flex-col py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
+                    <Button 
+                      variant='default' 
+                      className="flex justify-center items-center gap-2 font-semibold text-white"
+                      onClick={handleLogoutClick}
+                    >                  
+                      sair
+                      <LogOutIcon size={14}/>
+                    </Button>
+                  </div>
+                </div>
+
+
+              {/* <ChevronDownIcon size={18} className='hover: cursor-pointer' /> */}
             </div>
           ) : (
-            <div className='flex gap-2 items-center'>
-              <UserCircle2 />
-              <h3>Perfil</h3>
-            </div>
+            <Button onClick={() => setIsConfirmDialogOpen(true)} variant='default' className='w-full justify-start'>
+              <UserCircle2 className='mr-2' size={18} />
+              Fazer login
+            </Button>
           )}
         </div>
 
-        <Card className='md:hidden'>
+        <Card className='lg:hidden'>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
@@ -64,9 +98,15 @@ const Header = () => {
             </SheetContent>
           </Sheet>
         </Card>
+      </header>
 
-      </CardContent>
-    </Card>
+      <div onClick={() => setIsConfirmDialogOpen(false)}>
+        <AlertDialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+          <DialogLogin />
+        </AlertDialog>
+      </div>
+
+    </>
   );
 }
 

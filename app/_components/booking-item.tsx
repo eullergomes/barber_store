@@ -48,7 +48,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild>
-        <Card className='min-w-full'>
+        <Card className='min-w-full hover:cursor-pointer hover:opacity-85 hover:border-1 hover:border-secondary-foreground'>
           <CardContent className='py-0 px-0 flex'>
             <div className='flex flex-col gap-2 py-5 pl-5 flex-[3]'>
               <Badge variant={isBookingConfirmed ? 'default' : 'secondary'} className="w-fit">
@@ -146,8 +146,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
           <SheetFooter className='flex-row gap-3 mt-6 justify-center'>
             <AlertDialog>
-              <SheetClose asChild>
-                <Button className='w-full' variant='secondary'>
+              <SheetClose asChild className='w-full'>
+                <Button variant='secondary'>
                   Voltar
                 </Button>
               </SheetClose>

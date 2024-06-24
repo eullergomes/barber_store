@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { db } from '../_lib/prisma';
 import BookingItem from '../_components/booking-item';
 import { Key } from 'react';
+import Search from '../_components/search';
 
 const BookingsPage = async () => {
   const session = await getServerSession(authOptions);
@@ -42,9 +43,10 @@ const BookingsPage = async () => {
 
   return (
     <>
-      <Header />
+      <Header inputComponent={<Search />}/>
 
-      <div className="px-5 py-6">
+      {confirmedBookings.length > 0 || finishedBookings > 0 ? (
+        <div className="px-5 py-6">
         <h1 className='text-xl font-bold mb-6'>Agendamentos</h1>
 
         {confirmedBookings.length > 0 && (
@@ -71,6 +73,12 @@ const BookingsPage = async () => {
           </>
         )}
       </div>
+      ) : (
+        <div className="px-5 py-6">
+          <h1 className='text-xl font-bold'>Agendamentos</h1>
+          <p className='text-gray-400'>Você ainda não tem agendamentos.</p>
+        </div>
+      )}
     </>
   );
 }

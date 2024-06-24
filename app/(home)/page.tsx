@@ -4,7 +4,7 @@ import BarbershopItem from './_components/barbershop-item';
 import { Barbershop } from '@prisma/client';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
-import Search from './_components/search';
+import Search from '../_components/search';
 import BookingItem from '../_components/booking-item';
 import { Key } from 'react';
 import { format } from 'date-fns';
@@ -31,10 +31,10 @@ export default async function Home() {
   ])
 
   return (
-    <div>
+    <>
       <Header />
 
-      <div className="px-5 pt-5">
+      <div className="px-5 pt-5 lg:px-24">
         <h2 className="text-xl font-bold">
           {session?.user ? `Olá, ${session.user.name?.split(" ")[0]}!` : "Olá! Vamos agendar um corte hoje?"}
         </h2>
@@ -45,15 +45,15 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className='px-5 mt-6'>
+      <div className='px-5 mt-6 lg:px-24'>
         <Search />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 lg:px-24">
         {confirmedBookings.length > 0 && (
           <>
           <h2 className='pl-5 text-xs mb-3 uppercase text-gray-400 font-bold'>Agendamentos</h2>
-          <div className='px-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+          <div className='px-5 lg:px-0 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
             {confirmedBookings.map((booking: { id: Key | null | undefined; }) => (
               <BookingItem key={booking.id} booking={booking} />
             ))}
@@ -62,26 +62,25 @@ export default async function Home() {
         )}
       </div>
 
-      <div className='mt-5 md:mx-24'>
+      <div className='mt-5 lg:px-24'>
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Recomendados</h2>
 
-        <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+        <div className='flex px-5 lg:px-0 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
       </div>
 
-      <div className='mt-6 mb-[4.5rem] md:mx-24'>
+      <div className='mt-6 mb-[4.5rem] lg:px-24'>
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Populares</h2>
 
-        <div className='flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+        <div className='flex px-5 lg:px-0 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
       </div>
-
-    </div>
+      </>
   );
 }
