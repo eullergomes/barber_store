@@ -13,8 +13,14 @@ import { ptBR } from 'date-fns/locale';
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const [barbershops, confirmedBookings] = await Promise.all([
+  const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
     db.barbershop.findMany({}),
+
+    db.barbershop.findMany({
+      orderBy: {
+        id: 'asc'
+      }
+    }),
 
     session?.user ? db.booking.findMany({
       where: {
@@ -78,7 +84,7 @@ export default async function Home() {
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Populares</h2>
 
         <div className='flex px-5 lg:px-0 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden'>
-          {barbershops.map((barbershop: Barbershop) => (
+          {recommendedBarbershops.map((barbershop: Barbershop) => (
             <div className='min-w-[167px]' key={barbershop.id}>
               <BarbershopItem barbershop={barbershop} />
             </div>
