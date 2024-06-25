@@ -177,11 +177,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   </SheetTrigger>
 
                   <SheetContent className='p-0'>
-                    <SheetHeader className='text-left px-5 py-3 border-b border-solid border-secondary'>
+                    <SheetHeader className='text-left px-5 py-2 border-b border-solid border-secondary'>
                       <SheetTitle>Fazer reserva</SheetTitle>
                     </SheetHeader>
 
-                    <div className="py-1 px-1">
+                    <div className="">
                       <Calendar
                         mode="single"
                         selected={date}
@@ -216,7 +216,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                     {/* Show time list only when a date is being selected */}
                     {date && (
-                      <div className='flex gap-3 py-3 px-5 border-t border-solid border-secondary overflow-x-auto [&::-webkit-scrollbar]:hidden'>
+                      <div className='flex gap-3 py-2 px-5 border-t border-solid border-secondary overflow-x-auto [&::-webkit-scrollbar]:hidden'>
                         {timeList.map((time) => (
                           <Button variant={hour === time ? 'default' : 'outline'} className='rounded-full' key={time} onClick={() => hundleHourClick(time)}>{time}</Button>
                         ))}
@@ -262,7 +262,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     </div>
 
                     <SheetFooter className='px-5'>
-                      <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
+                      <Button className='w-full' onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
                         {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Confirmar reserva
                       </Button>
@@ -272,14 +272,14 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               </div>
             </div>
           </div>
+
+          <div onClick={() => setIsConfirmDialogOpen(false)}>
+            <AlertDialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+              <DialogLogin />
+            </AlertDialog>
+          </div>
         </CardContent>
       </Card>
-
-      <div onClick={() => setIsConfirmDialogOpen(false)}>
-        <AlertDialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
-          <DialogLogin />
-        </AlertDialog>
-      </div>
     </>
   );
 }

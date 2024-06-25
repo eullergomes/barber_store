@@ -42,10 +42,10 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     <>
       <Header inputComponent={<Search />} />
 
-      <div>
+      <div className='lg:px-24 pb-4 lg:pt-4'>
         <BarbershopInfo barbershop={barbershop} />
 
-        <div className="px-5 flex flex-col gap-4 py-6">
+        <div className="px-5 lg:px-0 grid grid-cols-1 md:grid-cols-2 gap-4">
           {barbershop.services.map((service: Service) => (
             <ServiceItem key={service.id} service={service} barbershop={barbershop} />
           ))}

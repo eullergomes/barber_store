@@ -18,7 +18,7 @@ export default async function Home() {
 
     db.barbershop.findMany({
       orderBy: {
-        id: 'asc'
+        id: 'desc'
       }
     }),
 

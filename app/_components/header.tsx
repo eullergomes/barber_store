@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ inputComponent }) => {
 
   return (
     <>
-      <header className="flex justify-between items-center p-5 lg:px-24 border-b ">
+      <header className="flex justify-between items-center px-5 py-3 lg:px-24 lg:py-5 border-b ">
         <Link href="/">
           <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
         </Link>
