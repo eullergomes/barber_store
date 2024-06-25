@@ -6,7 +6,9 @@ import { Button } from './ui/button';
 
 const DialogLogin = () => {
 
-  const handleLoginClick = () => signIn("google");
+  const handleLoginClickGoogle = () => signIn("google");
+
+  const handleLoginClickGithub = () => signIn("github");
 
   return (
     <AlertDialogContent className='w-2/3 rounded-lg'>
@@ -20,7 +22,7 @@ const DialogLogin = () => {
         {/* GOOGLE */}
         <AlertDialogAction
           className="w-full group flex items-center justify-center gap-2 border-2 border-default bg-secondary hover:bg-destructive hover:border-destructive text-white"
-          onClick={handleLoginClick}
+          onClick={handleLoginClickGoogle}
           asChild
         >
           <Button>
@@ -46,6 +48,7 @@ const DialogLogin = () => {
         <AlertDialogAction
           className="w-full group flex items-center justify-center gap-2 border-2 border-default bg-secondary hover:bg-primary hover:border-primary text-white"
           asChild
+          onClick={handleLoginClickGithub}
         >
           <Button>
             <svg
