@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ inputComponent }) => {
 
   return (
     <>
-      <header className="flex justify-between items-center p-5 lg:px-24">
+      <header className="flex justify-between items-center p-5 lg:px-24 border-b ">
         <Link href="/">
           <Image src="/logo.svg" alt="FSW Barber" height={16} width={100} />
         </Link>
@@ -57,12 +57,12 @@ const Header: React.FC<HeaderProps> = ({ inputComponent }) => {
               <h3>{data.user?.name}</h3>
 
                 <div className="group relative cursor-pointer">
-                  <div className="flex items-center justify-between space-x-5 px-2">
-                    <a className="menu-hover my-2 text-base font-medium text-white">
-                      <ChevronDownIcon className='hover:rotate-180' size={18} />
+                  <div className="group flex items-center justify-between space-x-5 px-2">
+                    <a className="group-hover:rotate-180 menu-hover my-2 text-base font-medium text-white">
+                      <ChevronDownIcon className='' size={18} />
                     </a>
                   </div>
-                  <div className="invisible absolute z-50 flex w-[120px] flex-col py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
+                  <div className="invisible absolute -right-3 z-50 flex w-[120px] flex-col py-1 px-4 text-gray-800 shadow-xl group-hover:visible">
                     <Button 
                       variant='default' 
                       className="flex justify-center items-center gap-2 font-semibold text-white"
