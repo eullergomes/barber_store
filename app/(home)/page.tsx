@@ -2,13 +2,13 @@ import Header from '../_components/header';
 import { db } from '../_lib/prisma';
 import BarbershopItem from './_components/barbershop-item';
 import { Barbershop } from '@prisma/client';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import Search from '../_components/search';
 import BookingItem from '../_components/booking-item';
 import { Key } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { authOptions } from '../_lib/auth';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
