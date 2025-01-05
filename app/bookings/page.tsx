@@ -45,7 +45,7 @@ const BookingsPage = async () => {
     <>
       <Header inputComponent={<Search />} />
 
-      {confirmedBookings.length > 0 || finishedBookings > 0 ? (
+      {confirmedBookings.length > 0 || finishedBookings.length > 0 ? (
         <div className="px-5 py-6 lg:px-24">
           <h1 className='text-xl font-bold mb-6'>Agendamentos</h1>
 
@@ -54,7 +54,7 @@ const BookingsPage = async () => {
               <h2 className='text-gray-400 uppercase font-bold text-sm mt-6 mb-3'>Confirmados</h2>
 
               <div className="flex flex-col gap-3">
-                {confirmedBookings.map((booking: { id: Key | null | undefined; }) => (
+                {confirmedBookings.map((booking) => (
                   <BookingItem key={booking.id} booking={booking} />
                 ))}
               </div>
@@ -66,7 +66,7 @@ const BookingsPage = async () => {
               <h2 className='text-gray-400 uppercase font-bold text-sm mt-6 mb-3'>Finalizados</h2>
 
               <div className="flex flex-col gap-3">
-                {finishedBookings.map((booking: { id: Key | null | undefined; }) => (
+                {finishedBookings.map((booking) => (
                   <BookingItem key={booking.id} booking={booking} />
                 ))}
               </div>
