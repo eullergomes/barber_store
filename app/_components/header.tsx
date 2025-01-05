@@ -36,10 +36,12 @@ const Header: React.FC<HeaderProps> = ({ inputComponent }) => {
         )}
 
         <div className='hidden lg:flex space-x-8'>
-          <Link href='/bookings' className='flex gap-2 items-center hover:bg-secondary rounded-sm p-2'>
-            <CalendarDays />
-            <h3>Agendamentos</h3>
+          {data?.user && (
+            <Link href='/bookings' className='flex gap-2 items-center hover:bg-secondary rounded-sm p-2'>
+              <CalendarDays />
+              <h3>Agendamentos</h3>
           </Link>
+          )}
 
           {data?.user ? (
             <div className='flex gap-2 items-center'>
